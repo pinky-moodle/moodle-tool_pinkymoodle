@@ -15,8 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This is the main script for the complete XMLDB interface. From here
- * all the actions supported will be launched.
+ * Overview of how a page in Moodle admin tool works
  *
  * @package    tool_pinkymoodle
  * @copyright  2021 Pinky sharma
