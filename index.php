@@ -15,12 +15,24 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_pinkymoodle', language 'en'
+ * This is the main script for the complete XMLDB interface. From here
+ * all the actions supported will be launched.
  *
  * @package    tool_pinkymoodle
- * @copyright  2021 Pinky Sharma
+ * @copyright  2021 Pinky sharma
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'My first Moodle plugin';
-$string['helloworld'] = 'Hello World';
+require_once(__DIR__ . '/../../../config.php');
+
+require_login();
+$url = new moodle_url('/admin/tool/pinkymoodle/index.php');
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url($url);
+$PAGE->set_pagelayout('report');
+$PAGE->set_title('Hello world');
+$PAGE->set_heading(get_string('pluginname', 'tool_pinkymoodle'));
+
+echo $OUTPUT->header();
+echo get_string('helloworld', 'tool_pinkymoodle');
+echo $OUTPUT->footer();
