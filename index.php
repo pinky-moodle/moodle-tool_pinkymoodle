@@ -25,6 +25,9 @@
 require_once(__DIR__ . '/../../../config.php');
 
 require_login();
+
+$id   = optional_param('id', '', PARAM_CLEAN);
+
 $url = new moodle_url('/admin/tool/pinkymoodle/index.php');
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
@@ -33,5 +36,6 @@ $PAGE->set_title('Hello world');
 $PAGE->set_heading(get_string('pluginname', 'tool_pinkymoodle'));
 
 echo $OUTPUT->header();
-echo get_string('helloworld', 'tool_pinkymoodle');
+echo get_string('helloworld', 'tool_pinkymoodle', $id);
+echo html_writer::div(get_string('helloworld', 'tool_pinkymoodle', $id));
 echo $OUTPUT->footer();
