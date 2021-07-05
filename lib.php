@@ -24,6 +24,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * This function extends course navigation to link plugin page
+ *
+ * @param navigation_node $navigation The navigation node to extend
+ * @param stdClass $course The course to object for the report
+ * @param context $context The context of the course
+ * @throws coding_exception
+ * @throws moodle_exception
+ */
 function tool_pinkymoodle_extend_navigation_course(\navigation_node $navigation, \stdClass $course, \context $context) {
     $navigation->add(
         get_string('pluginname', 'tool_pinkymoodle'),
