@@ -24,18 +24,31 @@
 
 require_once(__DIR__ . '/../../../config.php');
 
-require_login();
+$id   = optional_param('courseid', 0, PARAM_INT);
+if ($id != 0) {
+    if (!$course = $DB->get_record('course', ['id' => $id], '*')) {
+        throw new moodle_exception('invalidcourseid', manager::PLUGINNAME);
+    }
+    require_login($course);
+    $context = context_course::instance($id);
+} else {
+    require_login();
+    $context = context_system::instance();
+}
 
-$id   = optional_param('id', '', PARAM_CLEAN);
-
-$url = new moodle_url('/admin/tool/pinkymoodle/index.php');
-$PAGE->set_context(context_system::instance());
+$url = new moodle_url('/admin/tool/pinkymoodle/index.php', ['courseid' => $id]);
+// Course and site require different navigation setups.
+if ($id > SITEID) {
+    $PAGE->navigation->override_active_url($url);
+} else {
+    admin_externalpage_setup('tool_pinkymoodle_reports', '', null, '', ['pagelayout' => 'report']);
+}
+$PAGE->set_context($context);
 $PAGE->set_url($url);
-$PAGE->set_pagelayout('report');
+$PAGE->set_pagelayout('admin');
 $PAGE->set_title('Hello world');
 $PAGE->set_heading(get_string('pluginname', 'tool_pinkymoodle'));
 
 echo $OUTPUT->header();
-echo get_string('helloworld', 'tool_pinkymoodle', $id);
 echo html_writer::div(get_string('helloworld', 'tool_pinkymoodle', $id));
 echo $OUTPUT->footer();

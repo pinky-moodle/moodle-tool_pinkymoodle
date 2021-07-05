@@ -15,19 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin version info
+ * This file contains hooks and callbacks needed for this pugin
  *
  * @package    tool_pinkymoodle
- * @copyright  2021 Pinky Sharma
+ * @copyright  2021 Pinky sharma
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'tool_pinkymoodle'; // Full name of the plugin (used for diagnostics).
-$plugin->version   = 2021070400; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2021051700; // Requires this Moodle version.
-$plugin->maturity = MATURITY_ALPHA;
-$plugin->release = '1.3';
-
-
+function tool_pinkymoodle_extend_navigation_course(\navigation_node $navigation, \stdClass $course, \context $context) {
+    $navigation->add(
+        get_string('pluginname', 'tool_pinkymoodle'),
+        new moodle_url('/admin/tool/pinkymoodle/index.php', ['courseid' => $course->id]),
+        navigation_node::TYPE_SETTING,
+        get_string('pluginname', 'tool_pinkymoodle'),
+        'pinkymoodle',
+        new pix_icon('icon', '', 'tool_pinkymoodle'));
+}
