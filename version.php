@@ -28,6 +28,6 @@ $plugin->component = 'tool_pinkymoodle'; // Full name of the plugin (used for di
 $plugin->version   = 2021070400; // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2021051700; // Requires this Moodle version.
 $plugin->maturity = MATURITY_ALPHA;
-$plugin->release = '1.3';
+$plugin->release = '1.4';
 
 

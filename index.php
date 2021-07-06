@@ -51,4 +51,21 @@ $PAGE->set_heading(get_string('pluginname', 'tool_pinkymoodle'));
 
 echo $OUTPUT->header();
 echo html_writer::div(get_string('helloworld', 'tool_pinkymoodle', $id));
+
+// Total registered users.
+$totalusers = $DB->count_records('user');
+echo html_writer::div('Total registered users = '. $totalusers);
+$enrolledusers = $DB->count_records('role_assignments', array('contextid' => $context->id));
+if ($enrolledusers > 0) {
+    echo html_writer::div('Total enrolled users = '. $enrolledusers);
+    $sql = "SELECT * FROM {user} u
+        JOIN {role_assignments} r
+        ON u.id= r.userid
+        WHERE contextid=:contextid";
+    $usersincourse = $DB->get_records_sql($sql, array('contextid' => $context->id));
+    foreach ($usersincourse as $user) {
+        echo html_writer::div($user->firstname .' ' . $user->lastname);
+    }
+}
+
 echo $OUTPUT->footer();
